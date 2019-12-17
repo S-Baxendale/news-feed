@@ -32,7 +32,7 @@ export const HeartIcon = ({ color }) => (
     width="26"
     height="24"
     viewBox="0 0 26 24"
-    fill="none"
+    fill={color}
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

@@ -10,6 +10,9 @@ const AppContainer = styled.div`
   background-color: ${({ theme }) => theme.colorSecondary};
   padding: ${({ theme }) => theme.spacingMd};
   min-height: 100vh;
+  @media (max-width: ${({ theme }) => theme.bpTablet}) {
+    padding: ${({ theme }) => theme.spacingXs};
+  }
 `;
 
 function App() {

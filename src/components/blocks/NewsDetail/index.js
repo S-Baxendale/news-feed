@@ -49,9 +49,19 @@ const Author = styled.div`
   transition: color 0.4s ease;
 `;
 
+const Info = styled.p`
+  display: inline-block;
+  margin-right: 20px;
+  color: #81858a;
+`;
+
+const InfoContainer = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacingXs};
+`;
+
 const NewsDetail = props => {
   const [detailPage, updateDetailPage] = useState({});
-  console.log(detailPage);
+  const readTime = Math.ceil(detailPage.content?.length / 500);
   const param = props.match.params.id;
   useEffect(() => {
     // Need to search in Both searchResults and topStories:
@@ -62,7 +72,15 @@ const NewsDetail = props => {
   }, []);
   return (
     <PageContainer>
+      <InfoContainer>
+        <Info>{detailPage.source && detailPage.source?.name}</Info>
+        <Info>•</Info>
+        <Info>{detailPage.publishedAt}</Info>
+        <Info>•</Info>
+        <Info>Reading time {readTime} minutes</Info>
+      </InfoContainer>
       <Title>{detailPage.title}</Title>
+
       <ContentContainer>
         <Author>{detailPage.author}</Author>
         <Image style={{ backgroundImage: `url('${detailPage.urlToImage}')` }} />

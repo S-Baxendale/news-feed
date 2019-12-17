@@ -24,9 +24,9 @@ const TopStories = props => {
   //   <Card key={i} {...article} top={i === 0} />
   // ));
 
-  const renderCards = dummyData.articles.map((article, i) => (
-    <Card key={i} {...article} top={i === 0} />
-  ));
+  const renderCards = dummyData.articles.map((article, i) => {
+    return <Card key={i} {...article} top={i === 0} />;
+  });
 
   return (
     <PageContainer>
