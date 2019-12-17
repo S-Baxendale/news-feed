@@ -3,30 +3,32 @@ import styled from "styled-components";
 
 const CardContainer = styled.div`
   position: relative;
-  width: 360px;
-  height: 360px;
+  width: ${({ top }) => (top ? "100%" : "calc((100% / 3) - 20px)")};
+  height: ${({ top }) => (top ? "600px" : "360px")};
   display: inline-block;
-  margin: 20px 20px 0 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
   background-color: grey;
   background-size: cover;
-  background-position: top middle;
+  background-position: top;
   cursor: pointer;
 `;
 
 const TextContainer = styled.div`
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
   height: 150px;
   background-color: white;
   padding: ${({ theme }) => theme.spacingXs};
   display: flex;
   flex-direction: column;
+  ${({ top }) => top && "max-width: 50%;"}
 `;
 
 const Title = styled.p`
   font-weight: bold;
-  font-size: 18px;
+  font-size: ${({ top }) => (top ? "24px" : "18px")};
   margin-bottom: auto;
 `;
 
@@ -56,12 +58,19 @@ const BookmarkButton = styled.div`
   z-index: 100;
 `;
 
-export const Card = ({ urlToImage, title, author, source, publishedAt }) => {
+export const Card = ({
+  urlToImage,
+  title,
+  author,
+  source,
+  publishedAt,
+  top
+}) => {
   const image = urlToImage ? urlToImage : "";
   return (
-    <CardContainer style={{ backgroundImage: `url('${image}')` }}>
-      <TextContainer>
-        <Title>{title}</Title>
+    <CardContainer style={{ backgroundImage: `url('${image}')` }} top={top}>
+      <TextContainer top={top}>
+        <Title top={top}>{title}</Title>
         <Author>{author}</Author>
         <div>
           <Info>{source.name}</Info>

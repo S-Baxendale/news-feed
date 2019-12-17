@@ -18,7 +18,7 @@ const TopStories = props => {
   const topStories = useSelector(state => state.topStories);
 
   const renderCards = topStories.map((article, i) => (
-    <Card key={i} {...article} />
+    <Card key={i} {...article} top={i === 0} />
   ));
 
   return (
