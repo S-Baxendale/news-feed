@@ -4,7 +4,7 @@ import styled from "styled-components";
 const SearchContainer = styled.div`
   border-radius: 40px;
   background-color: ${({ theme }) => theme.colorWhite};
-  height: 40px;
+  height: 100%;
   position: relative;
   margin: ${({ theme }) => theme.spacingSm} 0 ${({ theme }) => theme.spacingMd};
   max-width: 500px;
@@ -37,7 +37,7 @@ const IconContainer = styled.div`
 const Icon = styled.img`
   width: 15px;
 `;
-const Search = props => {
+const Search = ({ show }) => {
   const [inputValue, updateInputValue] = useState("");
 
   const handleInputOnChange = value => {
