@@ -30,6 +30,12 @@ const Title = styled.p`
   font-weight: bold;
   font-size: ${({ top }) => (top ? "24px" : "18px")};
   margin-bottom: auto;
+
+  &:hover {
+    color: ${({ theme }) => theme.colorTertiary};
+  }
+
+  transition: color 0.3s ease;
 `;
 
 const Author = styled.p`

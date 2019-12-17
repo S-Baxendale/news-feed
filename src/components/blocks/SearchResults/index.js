@@ -1,15 +1,39 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useInView } from "react-intersection-observer";
 
 import { Title, Card } from "../../fragments";
 import styled from "styled-components";
+import { TOKEN } from "../../../token";
+import { fetchNewPage } from "../../../actions/search";
 
 const PageContainer = styled.div`
   padding-top: ${({ theme }) => theme.spacingLg};
 `;
 
-const TopStories = () => {
+const URL = "https://newsapi.org/v2/everything?q=";
+
+const SearchResults = () => {
   const { articles, searchValue, total } = useSelector(state => state.search);
+  const [ref, inView] = useInView({});
+  const [requestNo, updateRequestNo] = useState(2);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (inView) updateRequestNo(requestNo + 1);
+    if (requestNo >= 2) {
+      handleFetchNewPage(requestNo);
+    }
+  }, [inView, requestNo]);
+
+  const handleFetchNewPage = async pageNo => {
+    const response = await fetch(
+      `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
+    );
+    const data = await response.json();
+    dispatch(fetchNewPage(data));
+    console.log("Search page", requestNo);
+  };
 
   const renderCards = articles?.map((article, i) => (
     <Card key={i} {...article} top={i === 0} />
@@ -23,8 +47,9 @@ const TopStories = () => {
           : "Enter a keyword in search to see results"}
       </Title>
       {renderCards}
+      <div ref={ref} />
     </PageContainer>
   );
 };
 
-export default TopStories;
+export default SearchResults;
