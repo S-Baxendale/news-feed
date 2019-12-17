@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
 import { SearchIcon, CrossIcon } from "../../fragments";
+import { fetchSearch } from "../../../actions/search";
+import { TOKEN } from "../../../token";
+import { useDispatch } from "react-redux";
+import { withRouter } from "react-router";
 
 const SearchContainer = styled.div`
   background-color: ${({ theme }) => theme.colorWhite};
@@ -43,8 +48,12 @@ const CrossContainer = styled.div`
   positon: absolute;
   z-index: 200;
 `;
-const Search = ({ show, toggleShowSearch }) => {
+
+const URL = "https://newsapi.org/v2/everything?q=";
+
+const Search = ({ show, toggleShowSearch, history }) => {
   const [inputValue, updateInputValue] = useState("");
+  const dispatch = useDispatch();
 
   const handleInputOnChange = value => {
     updateInputValue(value);
@@ -52,8 +61,14 @@ const Search = ({ show, toggleShowSearch }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    const response = await fetch(`${URL}${inputValue}&apiKey=${TOKEN}`);
+    const data = await response.json();
+    dispatch(fetchSearch({ data, searchValue: inputValue }));
     updateInputValue("");
+    history.push("/search");
+    toggleShowSearch(false);
   };
+
   return (
     <SearchContainer>
       <IconContainer show={show}>
@@ -80,4 +95,4 @@ const Search = ({ show, toggleShowSearch }) => {
   );
 };
 
-export default Search;
+export default withRouter(Search);
