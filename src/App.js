@@ -8,7 +8,7 @@ import NewsDetail from "./components/blocks/NewsDetail";
 
 const AppContainer = styled.div`
   background-color: ${({ theme }) => theme.colorSecondary};
-  padding: ${({ theme }) => theme.spacingXs};
+  padding: ${({ theme }) => theme.spacingMd};
   min-height: 100vh;
 `;
 

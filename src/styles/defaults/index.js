@@ -74,7 +74,8 @@ export const GlobalStyle = createGlobalStyle`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  div {
     font-family: 'SF Display';
     color: #323F4B;
     margin: 0;
