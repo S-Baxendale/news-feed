@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Title, Card } from "../../fragments";
+import { Title } from "../../fragments";
+import Card from "../../fragments/Card";
 import { useFetchTopStories } from "../../../helpers/useFetch";
 import { fetchTopStories } from "../../../actions/fetch";
 import { TOKEN } from "../../../token";

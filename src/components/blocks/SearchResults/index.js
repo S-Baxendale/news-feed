@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
 
-import { Title, Card } from "../../fragments";
+import { Title } from "../../fragments";
+import Card from "../../fragments/Card";
 import styled from "styled-components";
 import { TOKEN } from "../../../token";
 import { fetchNewPage } from "../../../actions/search";

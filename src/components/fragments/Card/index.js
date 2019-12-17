@@ -65,14 +65,7 @@ const BookmarkButton = styled.div`
   z-index: 100;
 `;
 
-export const Card = ({
-  urlToImage,
-  title,
-  author,
-  source,
-  publishedAt,
-  top
-}) => {
+const Card = ({ urlToImage, title, author, source, publishedAt, top }) => {
   const image = urlToImage ? urlToImage : "";
   const pathname = title.replace(/\s/g, "-").toLowerCase();
   return (
@@ -93,3 +86,5 @@ export const Card = ({
     </CardContainer>
   );
 };
+
+export default Card;
