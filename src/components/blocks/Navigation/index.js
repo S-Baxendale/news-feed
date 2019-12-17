@@ -18,9 +18,17 @@ const NavContainer = styled.div`
 
 const IconContainer = styled.div`
   cursor: pointer;
+  margin-left: 20px;
 `;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  width: ${({ show }) => (show ? "100%" : 0)};
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: width 0.4s ease;
+`;
 
 const Navigation = () => {
   const [showSearch, toggleShowSearch] = useState(false);
@@ -33,9 +41,9 @@ const Navigation = () => {
       <IconContainer onClick={() => toggleShowSearch(state => !state)}>
         <SearchIcon color="white" />
       </IconContainer>
-      {/* <SearchContainer> */}
-      <Search show={showSearch} />
-      {/* </SearchContainer> */}
+      <SearchContainer show={showSearch}>
+        <Search show={showSearch} toggleShowSearch={toggleShowSearch} />
+      </SearchContainer>
     </NavContainer>
   );
 };
