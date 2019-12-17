@@ -6,6 +6,7 @@ import { Title, Card } from "../../fragments";
 import styled from "styled-components";
 import { TOKEN } from "../../../token";
 import { fetchNewPage } from "../../../actions/search";
+import dummyData from "../../../data";
 
 const PageContainer = styled.div`
   padding-top: ${({ theme }) => theme.spacingLg};
@@ -27,15 +28,20 @@ const SearchResults = () => {
   }, [inView, requestNo]);
 
   const handleFetchNewPage = async pageNo => {
-    const response = await fetch(
-      `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
-    );
-    const data = await response.json();
-    dispatch(fetchNewPage(data));
-    console.log("Search page", requestNo);
+    // const response = await fetch(
+    //   `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
+    // );
+    // const data = await response.json();
+    // dispatch(fetchNewPage(data));
+    dispatch(fetchNewPage(dummyData));
+    // console.log("Search page", requestNo);
   };
 
-  const renderCards = articles?.map((article, i) => (
+  // const renderCards = articles?.map((article, i) => (
+  //   <Card key={i} {...article} top={i === 0} />
+  // ));
+
+  const renderCards = dummyData.articles?.map((article, i) => (
     <Card key={i} {...article} top={i === 0} />
   ));
 

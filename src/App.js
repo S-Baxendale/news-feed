@@ -4,6 +4,7 @@ import TopStories from "./components/blocks/TopStories";
 import SearchResults from "./components/blocks/SearchResults";
 import Navigation from "./components/blocks/Navigation";
 import styled from "styled-components";
+import NewsDetail from "./components/blocks/NewsDetail";
 
 const AppContainer = styled.div`
   background-color: ${({ theme }) => theme.colorSecondary};
@@ -17,6 +18,7 @@ function App() {
       <Navigation />
       <Route path="/" exact component={TopStories} />
       <Route path="/search" exact component={SearchResults} />
+      <Route path="/articles/:id" exact component={NewsDetail} />
     </AppContainer>
   );
 }

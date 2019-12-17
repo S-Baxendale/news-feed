@@ -7,6 +7,8 @@ import { fetchTopStories } from "../../../actions/fetch";
 import { TOKEN } from "../../../token";
 import styled from "styled-components";
 
+import dummyData from "../../../data";
+
 const URL = "https://newsapi.org/v2/top-headlines?country=us";
 
 const PageContainer = styled.div`
@@ -14,10 +16,14 @@ const PageContainer = styled.div`
 `;
 
 const TopStories = props => {
-  useFetchTopStories(`${URL}&apiKey=${TOKEN}`, fetchTopStories);
+  // useFetchTopStories(`${URL}&apiKey=${TOKEN}`, fetchTopStories);
   const topStories = useSelector(state => state.topStories);
 
-  const renderCards = topStories.map((article, i) => (
+  // const renderCards = topStories.map((article, i) => (
+  //   <Card key={i} {...article} top={i === 0} />
+  // ));
+
+  const renderCards = dummyData.articles.map((article, i) => (
     <Card key={i} {...article} top={i === 0} />
   ));
 

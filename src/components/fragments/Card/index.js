@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const CardContainer = styled.div`
+const CardContainer = styled(Link)`
   position: relative;
   width: ${({ top }) => (top ? "100%" : "calc((100% / 3) - 20px)")};
   height: ${({ top }) => (top ? "600px" : "360px")};
@@ -73,8 +74,13 @@ export const Card = ({
   top
 }) => {
   const image = urlToImage ? urlToImage : "";
+  const pathname = title.replace(/\s/g, "-").toLowerCase();
   return (
-    <CardContainer style={{ backgroundImage: `url('${image}')` }} top={top}>
+    <CardContainer
+      to={`/articles/${pathname}`}
+      style={{ backgroundImage: `url('${image}')` }}
+      top={top}
+    >
       <TextContainer top={top}>
         <Title top={top}>{title}</Title>
         <Author>{author}</Author>
