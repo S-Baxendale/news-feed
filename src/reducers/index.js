@@ -1,8 +1,10 @@
 import bookmarks from "./bookmarks";
+import topStories from "./topStories";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-  bookmarks
+  bookmarks,
+  topStories
 });
 
 export default rootReducer;
