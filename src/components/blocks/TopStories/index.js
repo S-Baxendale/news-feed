@@ -17,7 +17,10 @@ const PageContainer = styled.div`
 `;
 
 const TopStories = props => {
-  useFetchTopStories(`${URL}&apiKey=${TOKEN}`, fetchTopStories);
+  const { data, loading } = useFetchTopStories(
+    `${URL}&apiKey=${TOKEN}`,
+    fetchTopStories
+  );
   const topStories = useSelector(state => state.topStories);
 
   const renderCards = topStories.map((article, i) => (
@@ -27,6 +30,7 @@ const TopStories = props => {
   return (
     <PageContainer>
       <Title>Top Stories</Title>
+      {loading && topStories.length === 0 && <p>Loading Stories</p>}
       {renderCards}
     </PageContainer>
   );

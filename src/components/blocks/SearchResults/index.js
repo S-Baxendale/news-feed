@@ -16,6 +16,7 @@ const PageContainer = styled.div`
 const URL = "https://newsapi.org/v2/everything?q=";
 
 const SearchResults = () => {
+  const [loading, updateLoading] = useState(true);
   const { articles, searchValue, total } = useSelector(state => state.search);
   const [ref, inView] = useInView({});
   const [requestNo, updateRequestNo] = useState(2);
@@ -27,7 +28,10 @@ const SearchResults = () => {
       handleFetchNewPage(requestNo);
     }
     if (inView) updateRequestNo(requestNo + 1);
-  }, [inView, requestNo]);
+    if (articles.length !== 0) {
+      updateLoading(false);
+    }
+  }, [inView, requestNo, articles]);
 
   const handleFetchNewPage = async pageNo => {
     const response = await fetch(
@@ -43,9 +47,10 @@ const SearchResults = () => {
 
   return (
     <PageContainer>
+      {loading && <p>Loading</p>}
       <Title>
-        {articles
-          ? `${total} results found for ${searchValue}`
+        {articles.length !== 0
+          ? `${total} results found for '${searchValue}'`
           : "Enter a keyword in search to see results"}
       </Title>
       {renderCards}

@@ -19,6 +19,9 @@ const Bookmarks = () => {
   return (
     <PageContainer>
       <Title>Bookmarks</Title>
+      {bookmarks.length === 0 && (
+        <p>Articles you have bookmarked will appear here.</p>
+      )}
       {renderCards}
     </PageContainer>
   );
