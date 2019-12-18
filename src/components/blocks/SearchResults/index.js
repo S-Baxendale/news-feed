@@ -6,7 +6,7 @@ import { Title } from "../../fragments";
 import Card from "../../fragments/Card";
 import styled from "styled-components";
 import { TOKEN } from "../../../token";
-import { fetchNewPage } from "../../../actions/search";
+import { fetchNewPage, updateLoading } from "../../../actions/search";
 import dummyData from "../../../data";
 
 const PageContainer = styled.div`
@@ -16,29 +16,29 @@ const PageContainer = styled.div`
 const URL = "https://newsapi.org/v2/everything?q=";
 
 const SearchResults = () => {
-  const [loading, updateLoading] = useState(true);
-  const { articles, searchValue, total } = useSelector(state => state.search);
+  const { articles, searchValue, total, isLoading } = useSelector(
+    state => state.search
+  );
   const [ref, inView] = useInView({});
   const [requestNo, updateRequestNo] = useState(2);
   const dispatch = useDispatch();
 
   useEffect(() => {
     // Infinite loading limited to 5 requests due to limited API requests (only 250 per day)
+    if (inView) updateRequestNo(requestNo + 1);
     if (requestNo >= 2 && requestNo < 4) {
       handleFetchNewPage(requestNo);
     }
-    if (inView) updateRequestNo(requestNo + 1);
-    if (articles.length !== 0) {
-      updateLoading(false);
-    }
-  }, [inView, requestNo, articles]);
+  }, [inView, requestNo]);
 
   const handleFetchNewPage = async pageNo => {
+    dispatch(updateLoading());
     const response = await fetch(
       `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
     );
     const data = await response.json();
     dispatch(fetchNewPage(data));
+    dispatch(updateLoading());
   };
 
   const renderCards = articles?.map((article, i) => (
@@ -47,13 +47,13 @@ const SearchResults = () => {
 
   return (
     <PageContainer>
-      {loading && <p>Loading</p>}
       <Title>
         {articles.length !== 0
           ? `${total} results found for '${searchValue}'`
           : "Enter a keyword in search to see results"}
       </Title>
       {renderCards}
+      {isLoading && <p>Loading</p>}
       <div ref={ref} />
     </PageContainer>
   );

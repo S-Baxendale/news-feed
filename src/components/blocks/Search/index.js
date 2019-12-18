@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { SearchIcon, CrossIcon } from "../../fragments";
-import { fetchSearch } from "../../../actions/search";
+import { fetchSearch, updateLoading } from "../../../actions/search";
 import { TOKEN } from "../../../token";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router";
@@ -60,6 +60,7 @@ const Search = ({ show, toggleShowSearch, history }) => {
   };
 
   const handleSubmit = async e => {
+    dispatch(updateLoading());
     e.preventDefault();
     const response = await fetch(`${URL}${inputValue}&apiKey=${TOKEN}`);
     const data = await response.json();
@@ -67,6 +68,7 @@ const Search = ({ show, toggleShowSearch, history }) => {
     updateInputValue("");
     history.push("/search");
     toggleShowSearch(false);
+    dispatch(updateLoading());
   };
 
   return (

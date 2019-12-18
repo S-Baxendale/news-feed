@@ -1,9 +1,14 @@
-import { FETCHED_SEARCH, FETCHED_NEW_PAGE } from "../actions/types";
+import {
+  FETCHED_SEARCH,
+  FETCHED_NEW_PAGE,
+  UPDATE_LOADING
+} from "../actions/types";
 
 const initialState = {
   total: null,
   articles: [],
-  searchValue: "payload.searchValue"
+  searchValue: "payload.searchValue",
+  isLoading: false
 };
 
 const searchReducer = (state = initialState, { type, payload }) => {
@@ -19,6 +24,8 @@ const searchReducer = (state = initialState, { type, payload }) => {
       const updatedArticles = [...state.articles];
       updatedArticles.push(...payload.articles);
       return { ...state, articles: updatedArticles };
+    case UPDATE_LOADING:
+      return { ...state, isLoading: !state.isLoading };
     default:
       return state;
   }
