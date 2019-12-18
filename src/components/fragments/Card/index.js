@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -98,9 +98,9 @@ const Card = ({
   author,
   source,
   publishedAt,
-  top,
-  bookmarked
+  top
 }) => {
+  const [isBookmarked, updateIsBookmarked] = useState(false);
   const dispatch = useDispatch();
   const image = urlToImage ? urlToImage : "";
   const pathname = title
@@ -109,11 +109,27 @@ const Card = ({
     .toLowerCase();
   const bookmarks = useSelector(state => state.bookmarks);
 
-  const handleSetBookmarked = () => {
-    if (bookmarks.find(item => item === title) === undefined) {
-      dispatch(addToBookmarks(title));
+  useEffect(() => {
+    if (bookmarks.find(item => item.title === title) === undefined) {
+      updateIsBookmarked(false);
     } else {
-      dispatch(removeFromBookmarks(title));
+      updateIsBookmarked(true);
+    }
+  }, []);
+
+  const handleSetBookmarked = () => {
+    const article = {
+      urlToImage,
+      title,
+      description,
+      author,
+      source,
+      publishedAt
+    };
+    if (bookmarks.find(item => item.title === title) === undefined) {
+      dispatch(addToBookmarks(article));
+    } else {
+      dispatch(removeFromBookmarks(article));
     }
   };
   return (
@@ -132,7 +148,7 @@ const Card = ({
         </div>
       </TextContainer>
       <BookmarkButton onClick={() => handleSetBookmarked()}>
-        <HeartIcon color="#E88785" />
+        <HeartIcon stroke="#E88785" color={isBookmarked ? "#E88785" : "none"} />
       </BookmarkButton>
     </CardContainer>
   );

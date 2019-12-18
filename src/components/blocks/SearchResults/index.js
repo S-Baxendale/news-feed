@@ -22,21 +22,19 @@ const SearchResults = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (inView) updateRequestNo(requestNo + 1);
+    // Infinite loading limited to 5 requests due to limited API requests (only 250 per day)
     if (requestNo >= 2 && requestNo < 4) {
       handleFetchNewPage(requestNo);
     }
+    if (inView) updateRequestNo(requestNo + 1);
   }, [inView, requestNo]);
 
   const handleFetchNewPage = async pageNo => {
-    // const response = await fetch(
-    //   `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
-    // );
-    // const data = await response.json();
-    // dispatch(fetchNewPage(data));
-    console.log("dispatch page no");
-    // dispatch(fetchNewPage(dummyData));
-    // console.log("Search page", requestNo);
+    const response = await fetch(
+      `${URL}${searchValue}&page=${pageNo}&apiKey=${TOKEN}`
+    );
+    const data = await response.json();
+    dispatch(fetchNewPage(data));
   };
 
   const renderCards = articles?.map((article, i) => (

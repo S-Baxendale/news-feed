@@ -7,7 +7,9 @@ const bookmarksReducer = (state = [], { type, payload }) => {
       updatedState.push(payload);
       return updatedState;
     case REMOVED_FROM_BOOKMARKS:
-      const filteredBookmarks = state.filter(article => article !== payload);
+      const filteredBookmarks = state.filter(
+        article => article.title !== payload.title
+      );
       return filteredBookmarks;
     default:
       return state;
