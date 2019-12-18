@@ -103,7 +103,10 @@ const Card = ({
 }) => {
   const dispatch = useDispatch();
   const image = urlToImage ? urlToImage : "";
-  const pathname = title.replace(/\s/g, "-").toLowerCase();
+  const pathname = title
+    ?.replace("%", "-")
+    .replace(/\s/g, "-")
+    .toLowerCase();
   const bookmarks = useSelector(state => state.bookmarks);
 
   const handleSetBookmarked = () => {
@@ -121,11 +124,11 @@ const Card = ({
     >
       <TextContainer top={top}>
         <Title top={top}>{title}</Title>
-        <Description>{description.slice(0, 250)} </Description>
+        <Description>{description?.slice(0, 250)} </Description>
         <Author>{author}</Author>
         <div>
-          <Info>{source.name}</Info>
-          <Info>{publishedAt.slice(0, 10)}</Info>
+          <Info>{source?.name}</Info>
+          <Info>{publishedAt?.slice(0, 10)}</Info>
         </div>
       </TextContainer>
       <BookmarkButton onClick={() => handleSetBookmarked()}>

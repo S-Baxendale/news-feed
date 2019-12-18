@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Title } from "../../fragments";
-import dummyData from "../../../data";
+import { useSelector } from "react-redux";
 
 const PageContainer = styled.div`
   padding-top: ${({ theme }) => theme.spacingLg};
@@ -61,30 +61,42 @@ const InfoContainer = styled.div`
 
 const NewsDetail = props => {
   const [detailPage, updateDetailPage] = useState({});
-  const readTime = Math.ceil(detailPage.content?.length / 500);
+  const { articles } = useSelector(state => state.search);
+  const topStories = useSelector(state => state.topStories);
+  const readTime = Math.ceil(detailPage?.content?.length / 500);
   const param = props.match.params.id;
+
   useEffect(() => {
-    // Need to search in Both searchResults and topStories:
-    const match = dummyData.articles.find(
-      article => article.title.replace(/\s/g, "-").toLowerCase() === param
+    const combinedArticles = [...topStories];
+    combinedArticles.push(...articles);
+    console.log("COMBINED", combinedArticles);
+    const match = combinedArticles.find(
+      article =>
+        article.title
+          .replace("%", "-")
+          .replace(/\s/g, "-")
+          .toLowerCase() === param
     );
     updateDetailPage(match);
   }, []);
+
   return (
     <PageContainer>
       <InfoContainer>
-        <Info>{detailPage.source && detailPage.source?.name}</Info>
+        <Info>{detailPage?.source && detailPage?.source?.name}</Info>
         <Info>•</Info>
-        <Info>{detailPage.publishedAt}</Info>
+        <Info>{detailPage?.publishedAt?.slice(0, 10)}</Info>
         <Info>•</Info>
         <Info>Reading time {readTime} minutes</Info>
       </InfoContainer>
-      <Title>{detailPage.title}</Title>
+      <Title>{detailPage?.title}</Title>
 
       <ContentContainer>
-        <Author>{detailPage.author}</Author>
-        <Image style={{ backgroundImage: `url('${detailPage.urlToImage}')` }} />
-        <Content>{detailPage.content}</Content>
+        <Author>{detailPage?.author}</Author>
+        <Image
+          style={{ backgroundImage: `url('${detailPage?.urlToImage}')` }}
+        />
+        <Content>{detailPage?.content}</Content>
       </ContentContainer>
     </PageContainer>
   );

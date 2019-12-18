@@ -17,16 +17,16 @@ const PageContainer = styled.div`
 `;
 
 const TopStories = props => {
-  // useFetchTopStories(`${URL}&apiKey=${TOKEN}`, fetchTopStories);
+  useFetchTopStories(`${URL}&apiKey=${TOKEN}`, fetchTopStories);
   const topStories = useSelector(state => state.topStories);
 
-  // const renderCards = topStories.map((article, i) => (
-  //   <Card key={i} {...article} top={i === 0} />
-  // ));
+  const renderCards = topStories.map((article, i) => (
+    <Card key={i} {...article} top={i === 0} />
+  ));
 
-  const renderCards = dummyData.articles.map((article, i) => {
-    return <Card key={i} {...article} top={i === 0} />;
-  });
+  // const renderCards = dummyData.articles.map((article, i) => {
+  //   return <Card key={i} {...article} top={i === 0} />;
+  // });
 
   return (
     <PageContainer>

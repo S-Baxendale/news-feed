@@ -23,7 +23,7 @@ const SearchResults = () => {
 
   useEffect(() => {
     if (inView) updateRequestNo(requestNo + 1);
-    if (requestNo >= 2) {
+    if (requestNo >= 2 && requestNo < 4) {
       handleFetchNewPage(requestNo);
     }
   }, [inView, requestNo]);
@@ -34,15 +34,12 @@ const SearchResults = () => {
     // );
     // const data = await response.json();
     // dispatch(fetchNewPage(data));
-    dispatch(fetchNewPage(dummyData));
+    console.log("dispatch page no");
+    // dispatch(fetchNewPage(dummyData));
     // console.log("Search page", requestNo);
   };
 
-  // const renderCards = articles?.map((article, i) => (
-  //   <Card key={i} {...article} top={i === 0} />
-  // ));
-
-  const renderCards = dummyData.articles?.map((article, i) => (
+  const renderCards = articles?.map((article, i) => (
     <Card key={i} {...article} top={i === 0} />
   ));
 

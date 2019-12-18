@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { HomeIcon, SearchIcon } from "../../fragments";
+import { HomeIcon, SearchIcon, HeartIcon } from "../../fragments";
 import Search from "../Search";
 
 const NavContainer = styled.div`
   height: 50px;
   width: 100vw;
   position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   background-color: black;
@@ -37,6 +38,11 @@ const Navigation = () => {
     <NavContainer>
       <NavLink exact to={`/`}>
         <HomeIcon color="white" />
+      </NavLink>
+      <NavLink exact to={`/bookmarks`}>
+        <IconContainer>
+          <HeartIcon color="white" />
+        </IconContainer>
       </NavLink>
       <IconContainer onClick={() => toggleShowSearch(state => !state)}>
         <SearchIcon color="white" />

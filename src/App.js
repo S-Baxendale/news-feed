@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import TopStories from "./components/blocks/TopStories";
 import SearchResults from "./components/blocks/SearchResults";
+import Bookmarks from "./components/blocks/Bookmarks";
 import Navigation from "./components/blocks/Navigation";
 import styled from "styled-components";
 import NewsDetail from "./components/blocks/NewsDetail";
@@ -22,6 +23,7 @@ function App() {
       <Route path="/" exact component={TopStories} />
       <Route path="/search" exact component={SearchResults} />
       <Route path="/articles/:id" exact component={NewsDetail} />
+      <Route path="/bookmarks" exact component={Bookmarks} />
     </AppContainer>
   );
 }
