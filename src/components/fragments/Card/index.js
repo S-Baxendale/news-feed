@@ -115,9 +115,10 @@ const Card = ({
     } else {
       updateIsBookmarked(true);
     }
-  }, []);
+  }, [bookmarks]);
 
-  const handleSetBookmarked = () => {
+  const handleSetBookmarked = e => {
+    e.preventDefault();
     const article = {
       urlToImage,
       title,
@@ -147,7 +148,7 @@ const Card = ({
           <Info>{publishedAt?.slice(0, 10)}</Info>
         </div>
       </TextContainer>
-      <BookmarkButton onClick={() => handleSetBookmarked()}>
+      <BookmarkButton onClick={e => handleSetBookmarked(e)}>
         <HeartIcon stroke="#E88785" color={isBookmarked ? "#E88785" : "none"} />
       </BookmarkButton>
     </CardContainer>
